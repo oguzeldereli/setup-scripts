@@ -8,7 +8,7 @@ These scripts automate the steps in `UCL_Programming_Environment_Setup_2026-27.p
 | macOS | `bash setup-macos.sh` |
 | Linux: Ubuntu, Debian, Mint, Fedora, RHEL-likes, openSUSE, Arch, or Ubuntu inside WSL | `bash setup-linux.sh` |
 
-Every run is appended to `ucl-setup-log.txt` in your home folder. **If anything fails, show that file to a tutor.** Don't reinstall things at random.
+Every run is appended to `ucl-setup-log.txt` in your home folder. **If anything fails, show that file to me.** Don't reinstall things at random.
 
 ## Safe by design
 
