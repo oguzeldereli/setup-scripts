@@ -252,8 +252,8 @@ if ($C) {
             }
         }
         Warn 'Next: RESTART your computer, open "Ubuntu" from the Start menu and create your Linux username and password.'
-        Warn 'Then run this script again with -C to finish installing GCC inside Ubuntu.'
-        Record 'TODO' 'WSL / Ubuntu' 'restart, open Ubuntu once, then run again with -C'
+        Warn 'Then run this script again (double-click setup-windows.cmd) and answer y to C to finish installing GCC.'
+        Record 'TODO' 'WSL / Ubuntu' 'restart, open Ubuntu once, then run this script again and choose C'
     }
 }
 
@@ -374,10 +374,10 @@ Write-Host ''
 if ($DryRun) {
     Write-Host 'Dry run finished. Nothing was installed. The checks above show what is already on this computer.'
 } elseif ($failed) {
-    Write-Host "Some checks failed. Close this window, open a new PowerShell and run the script again." -ForegroundColor Red
+    Write-Host "Some checks failed. Close this window and run the script again (installers sometimes need a fresh window)." -ForegroundColor Red
     Write-Host "If it still fails, show $Log to a tutor." -ForegroundColor Red
 } else {
-    Write-Host 'Setup finished. Close and reopen PowerShell so PATH changes take effect.' -ForegroundColor Green
+    Write-Host 'Setup finished. Close this window; terminals you open from now on will find the new tools.' -ForegroundColor Green
 }
 try { Stop-Transcript | Out-Null } catch { }
 if ($failed -and -not $DryRun) { exit 1 } else { exit 0 }

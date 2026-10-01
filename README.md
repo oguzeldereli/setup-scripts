@@ -23,10 +23,11 @@ Every run is appended to `ucl-setup-log.txt` in your home folder. **If anything 
 
 ## Safe by design
 
-- **Install only.** Anything already installed is skipped. Nothing is upgraded or removed:
+- **Install only.** Anything already installed is skipped, and nothing is removed:
   - `apt` runs with `--no-remove`.
   - `pacman` and `zypper` stop instead of resolving conflicts.
-  - Homebrew is told not to upgrade existing packages.
+  - Homebrew is told not to upgrade packages you already have.
+  - The scripts never run a system upgrade. A package manager may still update a shared library if a newly installed package needs a newer version.
 - **Your settings are left alone.** Git name, email and default branch are set only if they're empty. Shell profiles only get lines appended, and only if those lines aren't already there.
 - **Deletes only its own files.** The scripts delete files only inside `~/ucl-code/setup-test`, a folder they create for the tests.
 - **Official sources only.** Your OS package manager or WinGet, Apple, Homebrew, Microsoft, python.org, Adoptium, haskell.org and GitHub.
@@ -40,7 +41,7 @@ Every run is appended to `ucl-setup-log.txt` in your home folder. **If anything 
 |---|---|---|---|
 | Always | Git, VS Code, Python (Install Manager) | Apple command line tools, Homebrew\*, Git, VS Code, Python | GCC + Make, Git, Python + venv, VS Code\*\* |
 | C | WSL + Ubuntu + GCC (choose it) | always (Apple clang) | always (GCC) |
-| Java | Eclipse Temurin JDK 21 | Eclipse Temurin JDK 21 | OpenJDK 21 from your distro |
+| Java | Eclipse Temurin JDK 21 | Eclipse Temurin JDK 21 | OpenJDK 21 from your distro (the closest version it has, with a warning, if 21 isn't packaged) |
 | Haskell | GHCup (GHC, Cabal, HLS) | GHCup | GHCup |
 | GitHub Desktop (optional, asked) | yes | yes (macOS 12+) | no official Linux build |
 
@@ -60,7 +61,7 @@ If you don't pass any language options, the script asks which languages you need
 2. Double-click **`setup-windows.cmd`**. Don't use "Run as administrator"; the script asks for permission when it needs it. Windows may warn that the file came from the internet. If it does, choose **Run**, or **More info › Run anyway**.
 3. If you chose C and WSL wasn't installed yet, **restart** your computer. Then open **Ubuntu** from the Start menu and create a Linux username and password. Finally, double-click `setup-windows.cmd` again and answer **y** to C; it finishes installing GCC inside Ubuntu.
 
-PowerShell alternative:
+PowerShell alternative, to pass options. Open PowerShell (not as administrator) in the unzipped folder, for example by Shift + right-clicking the folder › **Open PowerShell window here** or **Open in Terminal**:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -C -Java -Haskell
@@ -68,17 +69,24 @@ powershell -ExecutionPolicy Bypass -File .\setup-windows.ps1 -C -Java -Haskell
 
 ### macOS
 
-Open **Terminal** (Applications › Utilities) in the folder containing the script:
+The easiest way is the `curl` one-liner at the top of this page. To run the downloaded copy instead:
 
-```bash
-bash setup-macos.sh
-```
+1. Open **Terminal** (Applications › Utilities).
+2. Type `cd ` (with a space after it), drag the unzipped `setup-scripts-main` folder into the Terminal window, and press Return.
+3. Run:
 
-You'll be asked for your Mac password (nothing appears as you type). If a window asks to install the command line developer tools, click **Install**.
+   ```bash
+   bash setup-macos.sh
+   ```
+
+You'll be asked for your Mac password (nothing appears as you type). If a window asks to install the command line developer tools, click **Install**. When it says it's done, go back to Terminal and press Return to continue.
 
 ### Linux
 
+Use the `curl` one-liner at the top of this page, or open a terminal in the unzipped folder and run:
+
 ```bash
+cd ~/Downloads/setup-scripts-main   # wherever you unzipped it
 bash setup-linux.sh
 ```
 
@@ -100,5 +108,5 @@ Run it as your normal user, not with `sudo`. On immutable systems (Fedora Silver
 ## After it finishes
 
 - Close and reopen your terminal so the new `PATH` takes effect.
-- The test programs are in `~/ucl-code/setup-test`. Your own work can go anywhere, for example `~/ucl-code/<module>`.
+- The test programs are in `~/ucl-code/setup-test` (on Windows: `C:\Users\<you>\ucl-code\setup-test`). Your own work can go anywhere, for example `~/ucl-code/<module>`.
 - Next steps from the slides: make your first Git commit (slide 36), and apply for the GitHub Student Pack and the JetBrains licence (slide 4).
