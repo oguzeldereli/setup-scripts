@@ -58,7 +58,7 @@ If you don't pass any language options, the script asks which languages you need
 
 1. Download the ZIP above and unzip it. Right-click › **Extract All**; running it from inside the ZIP won't work.
 2. Double-click **`setup-windows.cmd`**. Don't use "Run as administrator"; the script asks for permission when it needs it. Windows may warn that the file came from the internet. If it does, choose **Run**, or **More info › Run anyway**.
-3. If you chose C and WSL wasn't installed yet, **restart** your computer. Then open **Ubuntu** from the Start menu, create a Linux username and password, and run `setup-windows.cmd -C` again.
+3. If you chose C and WSL wasn't installed yet, **restart** your computer. Then open **Ubuntu** from the Start menu and create a Linux username and password. Finally, double-click `setup-windows.cmd` again and answer **y** to C; it finishes installing GCC inside Ubuntu.
 
 PowerShell alternative:
 
