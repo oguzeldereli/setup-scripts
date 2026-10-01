@@ -22,6 +22,9 @@
 #   * downloads come only from your distribution, Microsoft (VS Code) and haskell.org (GHCup)
 # Everything printed is also appended to ~/ucl-setup-log.txt. If something fails, show that file to a tutor.
 
+# The whole script is one { ... } block so bash reads all of it before running anything.
+# That keeps "curl ... | bash" safe even if a command reads from standard input.
+{
 set -uo pipefail
 
 JAVA_VERSION="${JAVA_VERSION:-21}"
@@ -391,7 +394,12 @@ check "Python version" "Python 3" python3 --version
 check "Python venv" "" python3 -m venv "$TEST_DIR/.venv"
 check "Python" "Hello, UCL!" "$TEST_DIR/.venv/bin/python" "$TEST_DIR/hello.py"
 if have python3 && ! python3 -c 'import sys; sys.exit(sys.version_info < (3, 9))' 2>/dev/null; then
-  record WARN "Python 3.9+" "python3 is older than 3.9; install a newer python3xx package"
+  case "$PM" in
+    zypper) py_hint="sudo zypper install python312, then use python3.12" ;;
+    dnf)    py_hint="sudo dnf install python3.12, then use python3.12" ;;
+    *)      py_hint="install a newer python3.x package" ;;
+  esac
+  record WARN "Python 3.9+" "python3 is older than 3.9: $py_hint"
 fi
 
 printf '#include <stdio.h>\nint main(void) { puts("Hello, UCL!"); return 0; }\n' > "$TEST_DIR/hello.c"
@@ -436,3 +444,4 @@ else
 fi
 [ -n "$DRY_RUN" ] && exit 0
 exit "$failed"
+}

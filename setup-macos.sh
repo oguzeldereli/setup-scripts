@@ -17,6 +17,9 @@
 #     haskell.org (GHCup) and GitHub (GitHub Desktop)
 # Everything printed is also appended to ~/ucl-setup-log.txt. If something fails, show that file to a tutor.
 
+# The whole script is one { ... } block so bash reads all of it before running anything.
+# That keeps "curl ... | bash" safe even if a command reads from standard input.
+{
 set -uo pipefail
 
 JAVA_VERSION="${JAVA_VERSION:-21}"
@@ -413,3 +416,4 @@ else
   printf '%s\n' "${RED}${BOLD}Some checks failed.${RESET} Show $LOG to a tutor."
 fi
 exit "$failed"
+}

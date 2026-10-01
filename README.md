@@ -1,12 +1,23 @@
 # UCL Programming Tutor Scheme 2026–27: setup scripts
 
-These scripts automate the steps in `UCL_Programming_Environment_Setup_2026-27.pptx`. Each one installs the tools, runs a "Hello, UCL!" program in every language you chose, and ends with a pass/fail summary.
+These scripts automate the steps in the tutor scheme's environment setup slides. Each one installs the tools, runs a "Hello, UCL!" program in every language you chose, and ends with a pass/fail summary.
 
 | Your laptop | Run this |
 |---|---|
 | Windows 10 / 11 | `setup-windows.cmd` (double-click) |
 | macOS | `bash setup-macos.sh` |
 | Linux: Ubuntu, Debian, Mint, Fedora, RHEL-likes, openSUSE, Arch, or Ubuntu inside WSL | `bash setup-linux.sh` |
+
+**Download:** [setup-scripts-main.zip](https://github.com/oguzeldereli/setup-scripts/archive/refs/heads/main.zip). Unzip it, then follow the steps for your system below.
+
+On macOS or Linux you can skip the download and run the script straight from GitHub instead:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/oguzeldereli/setup-scripts/main/setup-macos.sh | bash   # macOS
+curl -fsSL https://raw.githubusercontent.com/oguzeldereli/setup-scripts/main/setup-linux.sh | bash   # Linux
+```
+
+To pass options this way, add them after `bash -s --`, for example `... | bash -s -- --java --haskell`.
 
 Every run is appended to `ucl-setup-log.txt` in your home folder. **If anything fails, show that file to me.** Don't reinstall things at random.
 
@@ -45,8 +56,8 @@ If you don't pass any language options, the script asks which languages you need
 
 ### Windows
 
-1. Download this folder and unzip it.
-2. Double-click **`setup-windows.cmd`**. Don't use "Run as administrator"; the script asks for permission when it needs it.
+1. Download the ZIP above and unzip it. Right-click › **Extract All**; running it from inside the ZIP won't work.
+2. Double-click **`setup-windows.cmd`**. Don't use "Run as administrator"; the script asks for permission when it needs it. Windows may warn that the file came from the internet. If it does, choose **Run**, or **More info › Run anyway**.
 3. If you chose C and WSL wasn't installed yet, **restart** your computer. Then open **Ubuntu** from the Start menu, create a Linux username and password, and run `setup-windows.cmd -C` again.
 
 PowerShell alternative:
