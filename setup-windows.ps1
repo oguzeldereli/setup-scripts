@@ -213,7 +213,12 @@ if ($Haskell) {
             try {
                 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor 3072
                 $bootstrap = Invoke-WebRequest 'https://www.haskell.org/ghcup/sh/bootstrap-haskell.ps1' -UseBasicParsing
-                & ([ScriptBlock]::Create($bootstrap.Content)) -InstallHLS -DisableCurl
+                $bootstrapText = if ($bootstrap.Content -is [byte[]]) {
+                    [Text.Encoding]::UTF8.GetString($bootstrap.Content)
+                } else {
+                    [string]$bootstrap.Content
+                }
+                & ([ScriptBlock]::Create($bootstrapText)) -InstallHLS -DisableCurl
             } catch {
                 Fail "GHCup installation failed: $_"
             }
